@@ -1,0 +1,53 @@
+args = { ... }
+
+if table.getn(args) < 1 then
+    print("Missing argument, try git help")
+    return -1
+end
+
+command = args[1]
+
+function git_help()
+    print("***** cc-git help page *****")
+    print()
+    print("git help - display the help page")
+    print("git repo <repo_name> <user_name> - set active repo")
+    print("git pull <branch> <path> <file_name> - pull file")
+    print()
+    print("***** ---------------- *****")
+end
+
+function set_repo(repo_name, user_name)
+    file = fs.open("/git/git_repo", "w")
+    file.writeLine("https://raw.githubusercontent.com/"..user_name.."/"..repo_name)
+    file.close()
+end
+
+function git_pull(branch, path, file_name)
+    file = fs.open("/git/git_repo", "r")
+    repo = file.readLine().."/"..branch.."/"..path.."/"..file_name
+    file.close()
+    shell.run("rm "..file_name)
+    shell.run("wget "..repo)
+end
+
+function git_err()
+    print("Invalid format. Try git help")
+    return -1
+end
+
+if command == "help" then
+    git_help()
+elseif command == "repo" then
+    if table.getn(args) < 3 then
+        return git_err()
+    end
+    set_repo(args[2], args[3])
+elseif command == "pull" then
+    if table.getn(args) < 4 then
+        return git_err()
+    end
+    git_pull(args[2], args[3], args[4])
+else
+    print("Unknown argument, try git help")
+end
