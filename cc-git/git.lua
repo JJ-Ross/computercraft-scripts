@@ -11,16 +11,25 @@ function git_help()
     print("***** cc-git help page *****")
     print()
     print("git help - display the help page")
+    print("git info - display info about git repo")
     print("git repo <repo_name> <user_name> - set active repo")
     print("git pull <branch> <path> <file_name> - pull file")
     print()
     print("***** ---------------- *****")
 end
 
+function git_info()
+    file = fs.open("/git/git_repo", "r")
+    repo = file.readLine().."/"..branch.."/"..path.."/"..file_name
+    file.close()
+    print("Repo set to "..user_name.."/"..repo_name)
+end
+
 function set_repo(repo_name, user_name)
     file = fs.open("/git/git_repo", "w")
     file.writeLine("https://raw.githubusercontent.com/"..user_name.."/"..repo_name)
     file.close()
+    print("Repo set to "..user_name.."/"..repo_name)
 end
 
 function git_pull(branch, path, file_name)
@@ -38,6 +47,8 @@ end
 
 if command == "help" then
     git_help()
+elseif command == "info" then
+    git_info()
 elseif command == "repo" then
     if table.getn(args) < 3 then
         return git_err()
