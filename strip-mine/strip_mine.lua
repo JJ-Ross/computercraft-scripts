@@ -8,21 +8,32 @@ end
 function ifNotItems(itemList)
     for j = 1,16,1 do
         turtle.select(j)
-        isItem = false;
-        for i = 0,table.getn(itemList),1
-            do
-                if (turtle.getItemDetail().name == itemList[i]) do
+        isItem = false
+        for i = 0,table.getn(itemList),1 do
+                if (turtle.getItemDetail().name == itemList[i]) then
                     isItem = true;
                 end
-            end
         end
-        if (isItem = false) do
+        if (isItem == false) then
         turtle.drop()
         end
     end
 end
 
-itemList = {"minecraft:raw_copper", "minecraft:diamond", "minecraft:redstone", "minecraft:raw_iron", "minecraft:raw_gold", "minecraft:lapis_lazuli", "minecraft:coal"}
+function ifFull()
+    isFull = true
+    for i = 1,16,1 do
+        turtle.select(i)
+        if (turtle.getItemDetail().count = 0) then
+            isFull = false
+        end
+    end
+    if (isFull = true) then
+        comeback()
+    end
+end
+
+itemsList = {"minecraft:raw_copper", "minecraft:diamond", "minecraft:redstone", "minecraft:raw_iron", "minecraft:raw_gold", "minecraft:lapis_lazuli", "minecraft:coal"}
 
 function digFour()
     turtle.dig()
@@ -34,6 +45,7 @@ function digFour()
     turtle.dig()
     turtle.down()
     turtle.turnLeft()
+    ifNotItems(itemsList)
 end
 
 function comeBack(distance)
@@ -44,6 +56,7 @@ function comeBack(distance)
         turtle.forward()
     end
     dropInventory()
+    exit()
 end
 
 function stripMine()
