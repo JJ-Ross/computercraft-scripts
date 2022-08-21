@@ -20,9 +20,9 @@ end
 
 function git_info()
     file = fs.open("/git/git_repo", "r")
-    repo = file.readLine().."/"..branch.."/"..path.."/"..file_name
+    repo = file.readLine()
     file.close()
-    print("Repo set to "..user_name.."/"..repo_name)
+    print("Repo set to "..repo)
 end
 
 function set_repo(repo_name, user_name)
