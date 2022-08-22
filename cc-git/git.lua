@@ -37,6 +37,9 @@ function git_pull(branch, path, file_name)
     repo = file.readLine().."/"..branch.."/"..path.."/"..file_name
     file.close()
     shell.run("rm "..file_name)
+    -- reset wget
+    shell.run("wget https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html")
+    shell.run("rm 05_simple.html")
     shell.run("wget "..repo)
 end
 
