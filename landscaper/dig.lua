@@ -8,15 +8,15 @@ for x = 1, len do
     for y = 1, wid do
         for z = 1, hgt do
             turtle.digDown()
-            turtle.down()
+            if z ~= hgt then turtle.down() end
         end
-        for i = 1, hgt do turtle.up() end
+        for i = 1, hgt - 1 do turtle.up() end
         if y ~= wid then
             turtle.dig()
             turtle.forward()
         end
     end
-    for i = 1, wid do turtle.back() end
+    for i = 1, wid - 1 do turtle.back() end
     if x ~= len then
         turtle.turnRight()
         turtle.dig()
