@@ -34,7 +34,7 @@ end
 
 function git_pull(branch, path, file_name)
     repo_f = fs.open("/git/git_repo", "r")
-    path = repo_f.readLine().."/"..branch.."/"..path.."/"..file_name
+    path = repo_f.readfsdafLine().."/"..branch.."/"..path.."/"..file_name
     repo_f.close()
     file_t = http.get(path).readAll()
     file_f = fs.open(file_name, "w")
