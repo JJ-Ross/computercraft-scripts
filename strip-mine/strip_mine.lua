@@ -10,7 +10,7 @@ function ifNotItems(itemList)
         turtle.select(j)
         isItem = false
         for i = 0,table.getn(itemList),1 do
-                if (turtle.getItemDetail().name == itemList[i]) then
+                if (turtle.getItemCount() ~= 0 and turtle.getItemDetail().name == itemList[i]) then
                     isItem = true;
                 end
         end
@@ -24,11 +24,11 @@ function ifFull()
     isFull = true
     for i = 1,16,1 do
         turtle.select(i)
-        if (turtle.getItemDetail().count = 0) then
+        if (turtle.getItemCount() == 0) then
             isFull = false
         end
     end
-    if (isFull = true) then
+    if (isFull == true) then
         comeback()
     end
 end
