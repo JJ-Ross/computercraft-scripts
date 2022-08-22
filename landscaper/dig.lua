@@ -25,5 +25,5 @@ for x = 1, len do
     end
 end
 turtle.turnLeft()
-for i = 1, len - 1 do turtle.forward end
+for i = 1, len - 1 do turtle.forward() end
 turtle.turnRight()
