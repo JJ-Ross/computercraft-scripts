@@ -36,9 +36,17 @@ function git_pull(branch, path, file_name)
     repo_f = fs.open("/git/git_repo", "r")
     path = repo_f.readLine().."/"..branch.."/"..path.."/"..file_name
     repo_f.close()
-    file_t = http.get(path).readAll()
+    git_t = http.get(path).readAll()
+    file_f = fs.open(file_name, "r")
+    file_t = file_f.readAll()
+    if git_t == file_t do
+        print("No changes detected, exiting")
+        file_f.close()
+        return -1
+    end
+    file_f.close()
     file_f = fs.open(file_name, "w")
-    file_f.write(file_t)
+    file_f.write(git_t)
     file_f.close()
 end
 
