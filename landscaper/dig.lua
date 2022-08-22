@@ -6,11 +6,11 @@ hgt = tonumber(args[3])
 
 for x = 1, len do
     for y = 1, wid do
-        for z = 1, hgt do
+        for z = 1, hgt - 1 do
             turtle.digDown()
             if z ~= hgt then turtle.down() end
         end
-        for i = 1, hgt - 1 do turtle.up() end
+        for i = 1, hgt - 2 do turtle.up() end
         if y ~= wid then
             turtle.dig()
             turtle.forward()
