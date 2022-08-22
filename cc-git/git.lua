@@ -33,14 +33,13 @@ function set_repo(repo_name, user_name)
 end
 
 function git_pull(branch, path, file_name)
-    file = fs.open("/git/git_repo", "r")
-    repo = file.readLine().."/"..branch.."/"..path.."/"..file_name
-    file.close()
-    shell.run("rm "..file_name)
-    -- reset wget
-    shell.run("wget https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html")
-    shell.run("rm 05_simple.html")
-    shell.run("wget "..repo)
+    repo_f = fs.open("/git/git_repo", "r")
+    path = file.readLine().."/"..branch.."/"..path.."/"..file_name
+    repo_f.close()
+    file_t = http.get(path).readAll()
+    file_f = fs.open(file_name, "w")
+    file_f.write(file_t)
+    file_f.close()
 end
 
 function git_err()
