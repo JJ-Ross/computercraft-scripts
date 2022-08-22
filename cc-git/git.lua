@@ -48,7 +48,7 @@ function git_pull(branch, path, file_name)
     file_f = fs.open(file_name, "w")
     file_f.write(git_t)
     file_f.close()
-    print(file_name.." pulled from " path)
+    print(file_name.." pulled from "..path)
 end
 
 function git_err()
