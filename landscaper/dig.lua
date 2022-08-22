@@ -1,8 +1,8 @@
 args = { ... }
 
-len = tonumber(args[0])
-wid = tonumber(args[1])
-hgt = tonumber(args[2])
+len = tonumber(args[1])
+wid = tonumber(args[2])
+hgt = tonumber(args[3])
 
 for x = 1, len do
     for y = 1, wid do
