@@ -29,14 +29,14 @@ function square(len, wid, hgt)
     turtle.turnRight()
 end
 
-function cylinder(rad, hgt)
-	diag(rad, hgt, turtle.turnLeft)
+function cylinder(rad, hgt, xfc, yfc)
+	diag(rad, hgt, turtle.turnLeft, xfc)
 	turtle.turnRight()
-	diag(rad, hgt, turtle.turnLeft)
+	diag(rad, hgt, turtle.turnLeft, yfc)
 	turtle.turnRight()
-	diag(rad, hgt, turtle.turnLeft)
+	diag(rad, hgt, turtle.turnLeft, xfc)
 	turtle.turnRight()
-	diag(rad, hgt, turtle.turnLeft)
+	diag(rad, hgt, turtle.turnLeft, yfc)
 	turtle.turnRight()
 	dig()
 	forward()
@@ -47,12 +47,12 @@ function cylinder(rad, hgt)
 		end
 		return 1
 	else
-		return cylinder(rad - 1, hgt)
+		return cylinder(rad - 1, hgt, xfc, xfc)
 	end
 end
 
 if command == "square" then
     square(tonumber(args[2]), tonumber(args[3]), tonumber(args[4]))
 elseif command == "cylinder" then
-	cylinder(tonumber(args[2]), tonumber(args[3]))
+	cylinder(tonumber(args[2]), tonumber(args[3]), tonumber(args[4]), tonumber(args[5]))
 end
