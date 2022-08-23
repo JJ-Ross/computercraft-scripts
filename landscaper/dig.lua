@@ -28,5 +28,5 @@ end
 
 if args[1] == "square" then
     square(args[2], args[3], args[4])
-elseif args[1] == "capsule"
+elseif args[1] == "capsule" then
 end
