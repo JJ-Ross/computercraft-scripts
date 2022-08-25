@@ -29,7 +29,7 @@ function square(len, wid, hgt)
     turtle.turnRight()
 end
 
-function cylinder(rad, hgt, xfc, yfc)
+function cylinder(rad, hgt, xfc, yfc, top)
 	diag(rad, hgt, turtle.turnLeft, xfc)
 	turtle.turnRight()
 	diag(rad, hgt, turtle.turnLeft, yfc)
@@ -40,19 +40,20 @@ function cylinder(rad, hgt, xfc, yfc)
 	turtle.turnRight()
 	dig()
 	forward()
+	if top == "true" then
+		turtle.digUp()
+		turtle.up()
+		hgt = hgt + 1
+	end
 	if rad <= 1 then
-		for y = 1, hgt - 1 do
-			turtle.digDown()
-			if y < hgt - 1 then turtle.down() end
-		end
-		return 1
+		return square(yfc, xfc, hgt)
 	else
-		return cylinder(rad - 1, hgt, xfc, xfc)
+		return cylinder(rad - 1, hgt, xfc, yfc)
 	end
 end
 
 if command == "square" then
     square(tonumber(args[2]), tonumber(args[3]), tonumber(args[4]))
 elseif command == "cylinder" then
-	cylinder(tonumber(args[2]), tonumber(args[3]), tonumber(args[4]), tonumber(args[5]))
+	cylinder(tonumber(args[2]), tonumber(args[3]), tonumber(args[4]), tonumber(args[5]), args[6])
 end
