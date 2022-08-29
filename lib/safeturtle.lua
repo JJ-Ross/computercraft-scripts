@@ -27,9 +27,9 @@ function placeBlock(dir)
 		turtle.placeDown()
 	elseif dir == "up" then
 		turtle.placeUp()
-	elseif dir == "front"
+	elseif dir == "front" then
 		turtle.place()
-	elseif dir == "back"
+	elseif dir == "back" then
 		turtle.turnLeft()
 		turtle.turnLeft()
 		turtle.place()
