@@ -48,7 +48,7 @@ function cylinder(rad, hgt, xfc, yfc, top)
 	if rad <= 1 then
 		return square(yfc, xfc, hgt)
 	else
-		return cylinder(rad - 1, hgt, xfc, yfc)
+		return cylinder(rad - 1, hgt, xfc, yfc, top)
 	end
 end
 
