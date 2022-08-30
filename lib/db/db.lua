@@ -1,4 +1,5 @@
 require("/lib/db/db_util")
+modem = peripheral.find("modem")
 
 args = { ... }
 
@@ -10,38 +11,38 @@ end
 command = args[1]
 
 function db_help()
-    print("***** cc-db help page *****")
-    print()
-    print("mongo help - display the help page")
-	print("mongo create <name> - create collection")
-	print("mongo insert <name> <id> <doc> - insert document")
-	print("mongo delete <name> <id> - delete document")
-	print("mongo select <name> <id> - select document")
-	print("mongo get <name> - get collection")
-	print("mongo drop <name> - drop collection")
-	print("mongo list - show all collections")
-    print()
-    print("***** ---------------- *****")
+    return "***** cc-db help page *****\n\nmongo help - display the help page\nmongo create <name> - create collection\nmongo insert <name> <id> <doc> - insert document\nmongo delete <name> <id> - delete document\nmongo select <name> <id> - select document\nmongo get <name> - get collection\nmongo drop <name> - drop collection\nmongo list - show all collections\n\n***** ---------------- *****"
 end
 
-if command == "help" then
-    db_help()
-elseif command == "create" and table.getn(args) == 2 then
+if command == "help" and table.getn(args) >= 1 then
+	if modem then modem.transmit(tonumber(args[2]), 0, db_help())
+	else print(db_help()) end
+elseif command == "create" and table.getn(args) >= 2 then
 	create_collection(args[2])
-elseif command == "insert" and table.getn(args) == 4 then
+	if modem then modem.transmit(tonumber(args[3]), 0, "collection "..args[2].." created")
+	else print("collection "..args[2].." created") end
+elseif command == "insert" and table.getn(args) >= 4 then
 	loadstring("document = "..args[4])()
 	insert(args[2], args[3], document)
-elseif command == "delete" and table.getn(args) == 3 then
+	if modem then modem.transmit(tonumber(args[5]), 0, "document inserted into collection "..args[2])
+	else print("document inserted into collection "..args[2]) end
+elseif command == "delete" and table.getn(args) >= 3 then
 	delete(args[2], args[3])
-elseif command == "select" and table.getn(args) == 3 then
+	if modem then modem.transmit(tonumber(args[4]), 0, "document deleted from collection "..args[2])
+	else print("document deleted from collection "..args[2]) end
+elseif command == "select" and table.getn(args) >= 3 then
 	document_text, num = textutils.serialize(select(args[2], args[3])):gsub("\n", ""):gsub("%s", "")
-	print(document_text)
-elseif command == "get" and table.getn(args) == 2 then
+	if modem then modem.transmit(tonumber(args[4]), 0, document_text)
+	else print(document_text) end
+elseif command == "get" and table.getn(args) >= 2 then
 	collection_text, num = textutils.serialize(get_collection(args[2])):gsub("\n", ""):gsub("%s", "")
-	print(collection_text)
-elseif command == "drop" and table.getn(args) == 2 then
+	if modem then modem.transmit(tonumber(args[3]), 0, collection_text)
+	else print(collection_text) end
+elseif command == "drop" and table.getn(args) >= 2 then
 	drop_collection(args[2]..".db")
-elseif command == "list" and table.getn(args) == 1 then
+	if modem then modem.transmit(tonumber(args[3]), 0, "dropped collection "..args[2])
+	else print("dropped collection "..args[2]) end
+elseif command == "list" and table.getn(args) >= 1 then
 	show_collections()
 else
     print("Unknown command or argument(s), try mongo help")
