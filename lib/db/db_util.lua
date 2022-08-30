@@ -29,9 +29,9 @@ end
 function select(collection_name, document_id)
 	collection_file = fs.open("/lib/db/collections/"..collection_name..".db", "r")
 	loadstring("collection = "..collection_file.readAll())()
-	document = collection[document_id]
 	collection_file.close()
-	return document
+	if not collection[document_id] then return nil end
+	return collection[document_id]
 end
 
 function get_collection(collection_name)
