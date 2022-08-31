@@ -6,7 +6,10 @@ modem.open(port)
 print("listening on port "..port.."...")
 
 while true do
-    event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+	local event, side, channel, replyChannel, message, distance
+	repeat
+		event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+	until channel == port
 	print("\nRecieved query: "..message.."\nreply to port "..replyChannel)
 	shell.run(message.." "..tostring(replyChannel))
 end
