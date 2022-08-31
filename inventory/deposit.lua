@@ -1,3 +1,4 @@
+require("/inventory/inventory_util")
 args = { ... }
 
 modem = peripheral.wrap("right") or error("Server can't start without modem", 0)
@@ -17,3 +18,5 @@ main_chest = peripheral.wrap(document.tag)
 for index, item in next, main_chest.list() do
 	-- deposit item and update database, one at a time
 end
+
+insert_chests(1, 4)
